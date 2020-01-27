@@ -10,6 +10,7 @@ class Character:
     def alive(self):
         if self.health > 0:
             return True
+            #hello
         else:
             return False        
     def attack(self,enemy):
