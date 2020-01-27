@@ -1,3 +1,8 @@
+import random
+import sys
+
+
+
 class Character:
     def __init__(self, health, power):
         self.health = health
@@ -8,7 +13,6 @@ class Character:
         else:
             return False        
     def attack(self,enemy):
-        # Batman attacks Joker
         enemy.health -= self.power
         if(self.character_name == "Batman"):
             print(f"You do {self.power} damage to {enemy.character_name}.")
@@ -45,12 +49,60 @@ Batman = Batman(15,5)
 Joker = Joker(13,2)
 Bane = Bane(float('inf '),7)
 def main():
+    print("Listen Batman, The Joker and Bane are on the lose!, The city needs you...\n")
+    print("1. Suit up\n")
+    print("2. Let Superman take care of it\n")
+    raw_input = input()
+    if raw_input == "1":
+        # print(battle())
+        battle()
+    if raw_input == "2":
+        print("You're not a real superhero anyway.")
+        game_over()
+def battle():
+        print("What is our first stop?\n")
+        print("1. Arkham Asylum(Joker)\n")
+        print("2. Poison Ivys Hideout\n")
+        print("3. Quit")
+        raw_input = input()
+        if raw_input == "1":
+            joker_battle()
+        elif raw_input == "2":
+            bane_battle()
+        elif raw_input == "3":
+            game_over()
+            
+        
+def bane_battle():
     while Joker.alive() > 0 and Batman.alive() > 0:
         print()
-        print("Welcome to Gotham!")
-        print("1. Fight The Joker")
-        print("2. Fight Bane")
-        print("3. Pop Smoke")
+        print("You arrived to find an angry BANE! What do you do\n")
+        print("1. Fight\n")
+        print("2. Run Away!\n")
+        print()
+        raw_input = input()
+        if raw_input == "1":
+            Batman.attack(Bane)
+            Batman.print_status()
+            Bane.print_status()
+        elif raw_input == "2":
+            print()
+            print("Superman isn't a quitter")
+            print()
+            battle()
+        if Bane.alive():
+            Batman.health -= Bane.power
+            if not Batman.alive():
+                print("You are dead.")
+                print("GAME OVER")
+
+def joker_battle():
+    while Joker.alive() > 0 and Batman.alive() > 0:
+        print()
+        print("You arrive at Arkham and spot The Joker!\n")
+        print("What do you do?\n")
+        print("1.Attack\n")
+        print("2.Run away\n")
         print("> ", end=' ')
         raw_input = input()
         if raw_input == "1":
@@ -60,19 +112,27 @@ def main():
             if not Joker.alive():
                 print("The Joker is dead.")
         elif raw_input == "2":
-            Batman.attack(Bane)
-            Batman.print_status()
-            Bane.print_status()
+            print()
+            print("*******Harley has more balls than you********")
+            print()
+            battle()
         elif raw_input == "3":
-            print("Deuces!.")
-            break
+            game_over()           
         else:
             print(f"Try Again {raw_input}")
-
         if Joker.alive():
-            # Joker attacks Batman
             Batman.health -= Joker.power
             if not Batman.alive():
                 print("You are dead.")
+def game_over():
+    print ("GAME OVER!")
+    sys.exit()
+    
+
+
 
 main()
+# battle()
+# joker_battle()
+# bane_battle()
+# game_over()
