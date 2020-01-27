@@ -49,7 +49,7 @@ Batman = Batman(15,5)
 Joker = Joker(13,2)
 Bane = Bane(float('inf '),7)
 def main():
-    print("Listen Batman, The Joker and Bane are on the lose!, The city needs you...\n")
+    print("Listen Batman, The Joker and Bane are on the loose!, The city needs you...\n")
     print("1. Suit up\n")
     print("2. Let Superman take care of it\n")
     raw_input = input()
@@ -61,7 +61,7 @@ def main():
         game_over()
 def battle():
         print("What is our first stop?\n")
-        print("1. Arkham Asylum(Joker)\n")
+        print("1. Arkham Asylum.\n")
         print("2. Poison Ivys Hideout\n")
         print("3. Quit")
         raw_input = input()
