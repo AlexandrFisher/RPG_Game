@@ -1,46 +1,78 @@
-#!/usr/bin/env python
+class Character:
+    def __init__(self, health, power):
+        self.health = health
+        self.power = power
+    def alive(self):
+        if self.health > 0:
+            return True
+        else:
+            return False        
+    def attack(self,enemy):
+        # Batman attacks Joker
+        enemy.health -= self.power
+        if(self.character_name == "Batman"):
+            print(f"You do {self.power} damage to {enemy.character_name}.")
 
-# In this simple RPG game, the hero fights the goblin. He has the options to:
+        elif(self.character_name == "Joker"):
+            print(f"The {self.character_name} does {self.power} damage to you.")
+    def print_status(self):
+        if self.character_name == "Batman":
+            print(f"You have {self.health} health and {self.power} power.")
+        elif self.character_name == "Joker":
+            print(f"The {self.character_name} has {self.health} health and {self.power} power.")
+        elif self.character_name == "Bane":
+            print(f"{self.character_name} has {self.health} health")
 
-# 1. fight goblin
-# 2. do nothing - in which case the goblin will attack him anyway
-# 3. flee
+class Batman(Character):
+    def __init__(self,health, power):
+        self.character_name = "Batman"
+        super(Batman,self).__init__(health, power)
+    def print_status(self):
+        print(f"You have {self.health} health and {self.power} power.")
 
+
+class Joker(Character):
+    def __init__(self, health, power):
+        self.character_name = "Joker"
+        super(Joker, self).__init__(health, power)
+
+class Bane(Character):
+    def __init__(self, health, power):
+        self.character_name = "Bane"
+        super(Bane,self).__init__(health,power)
+
+Batman = Batman(15,5)
+Joker = Joker(13,2)
+Bane = Bane(float('inf '),7)
 def main():
-    hero_health = 10
-    hero_power = 5
-    goblin_health = 6
-    goblin_power = 2
-
-    while goblin_health > 0 and hero_health > 0:
-        print("You have {} health and {} power.".format(hero_health, hero_power))
-        print("The goblin has {} health and {} power.".format(goblin_health, goblin_power))
+    while Joker.alive() > 0 and Batman.alive() > 0:
         print()
-        print("What do you want to do?")
-        print("1. fight goblin")
-        print("2. do nothing")
-        print("3. flee")
+        print("Welcome to Gotham!")
+        print("1. Fight The Joker")
+        print("2. Fight Bane")
+        print("3. Pop Smoke")
         print("> ", end=' ')
         raw_input = input()
         if raw_input == "1":
-            # Hero attacks goblin
-            goblin_health -= hero_power
-            print("You do {} damage to the goblin.".format(hero_power))
-            if goblin_health <= 0:
-                print("The goblin is dead.")
+            Batman.attack(Joker)
+            Batman.print_status()
+            Joker.print_status()
+            if not Joker.alive():
+                print("The Joker is dead.")
         elif raw_input == "2":
-            pass
+            Batman.attack(Bane)
+            Batman.print_status()
+            Bane.print_status()
         elif raw_input == "3":
-            print("Goodbye.")
+            print("Deuces!.")
             break
         else:
-            print("Invalid input {}".format(raw_input))
+            print(f"Try Again {raw_input}")
 
-        if goblin_health > 0:
-            # Goblin attacks hero
-            hero_health -= goblin_power
-            print("The goblin does {} damage to you.".format(goblin_power))
-            if hero_health <= 0:
+        if Joker.alive():
+            # Joker attacks Batman
+            Batman.health -= Joker.power
+            if not Batman.alive():
                 print("You are dead.")
 
 main()
